@@ -8,8 +8,7 @@ import ArrowForward from '@mui/icons-material/ArrowForward';
 import { addDoc, collection, onSnapshot, query } from 'firebase/firestore';
 import db from '../firebase';
 
-const Tags = ({ handleDelete }) => {
-    const [tags, setTags] = useState([]);
+const Tags = ({ tags, setTags, handleDelete }) => {
     const [tagName, setTagName] = useState('');
 
     useEffect(() => {
@@ -25,7 +24,7 @@ const Tags = ({ handleDelete }) => {
         return () => unsub();
     }, []);
 
-    const handleSubmit = async () => {
+    const addNewTag = async () => {
         if (tagName !== '') {
             await addDoc(collection(db, PATH.TAGS), { name: tagName });
             setTagName('');
@@ -48,10 +47,7 @@ const Tags = ({ handleDelete }) => {
                     onChange={handleChange}
                     placeholder="Enter a tag"
                 />
-                <button
-                    className="button-complete"
-                    onClick={() => handleSubmit()}
-                >
+                <button className="button-complete" onClick={() => addNewTag()}>
                     <ArrowForward id="i" />
                 </button>
             </div>
