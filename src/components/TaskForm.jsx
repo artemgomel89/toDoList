@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+
+import { PATH } from '../constants';
+
 import db from '../firebase';
 import { collection, addDoc } from 'firebase/firestore';
 
@@ -8,7 +11,10 @@ const TaskForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (title !== '') {
-            await addDoc(collection(db, 'todos'), { title, completed: false });
+            await addDoc(collection(db, PATH.TASKS), {
+                title,
+                completed: false,
+            });
             setTitle('');
         }
     };
