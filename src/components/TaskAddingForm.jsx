@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 
-import { PATH } from '../constants';
+import { CONSTANTS } from '../constants';
 
-import db from '../firebase';
+import db from '../Api/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 
-const TaskForm = () => {
+const TaskAddingForm = () => {
     const [title, setTitle] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (title !== '') {
-            await addDoc(collection(db, PATH.TASKS), {
+            await addDoc(collection(db, CONSTANTS.TASKS), {
                 title,
                 completed: false,
+                tag: null,
             });
             setTitle('');
         }
@@ -29,6 +30,7 @@ const TaskForm = () => {
                     onChange={(e) => setTitle(e.target.value)}
                 />
             </div>
+
             <div className="btn_container">
                 <button>Add</button>
             </div>
@@ -36,4 +38,4 @@ const TaskForm = () => {
     );
 };
 
-export default TaskForm;
+export default TaskAddingForm;

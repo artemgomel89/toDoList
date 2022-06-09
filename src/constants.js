@@ -1,4 +1,4 @@
-export const PATH = {
+export const CONSTANTS = {
     TASKS: 'tasks',
     TAGS: 'tags',
 };

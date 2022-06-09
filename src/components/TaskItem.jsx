@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { PATH } from '../constants';
+import { CONSTANTS } from '../constants';
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import EditIcon from '@mui/icons-material/Edit';
@@ -44,12 +44,12 @@ const TaskItem = ({ task, toggleComplete, handleDelete, handleEdit, tags }) => {
                 </button>
                 <button
                     className="button-delete"
-                    onClick={() => handleDelete(task.id, PATH.TASKS)}
+                    onClick={() => handleDelete(task.id, CONSTANTS.TASKS)}
                 >
                     <DeleteIcon id="i" />
                 </button>
             </div>
-            <MuiAutocomplete tags={tags} />
+            <MuiAutocomplete tags={tags} task={task} />
         </div>
     );
 };

@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
-import { PATH } from '../constants';
+import { CONSTANTS } from '../constants';
 
-import Tag from './Tag';
+import TagItem from './TagItem';
 import ArrowForward from '@mui/icons-material/ArrowForward';
 
 import { addDoc, collection, onSnapshot, query } from 'firebase/firestore';
-import db from '../firebase';
+import db from '../Api/firebase';
 
 const Tags = ({ tags, setTags, handleDelete }) => {
     const [tagName, setTagName] = useState('');
 
     useEffect(() => {
-        const q = query(collection(db, PATH.TAGS));
+        const q = query(collection(db, CONSTANTS.TAGS));
         const unsub = onSnapshot(q, (querySnapshot) => {
             let tagsArr = [];
             querySnapshot.forEach((doc) => {
@@ -26,7 +26,7 @@ const Tags = ({ tags, setTags, handleDelete }) => {
 
     const addNewTag = async () => {
         if (tagName !== '') {
-            await addDoc(collection(db, PATH.TAGS), { name: tagName });
+            await addDoc(collection(db, CONSTANTS.TAGS), { name: tagName });
             setTagName('');
         }
     };
@@ -47,14 +47,14 @@ const Tags = ({ tags, setTags, handleDelete }) => {
                     onChange={handleChange}
                     placeholder="Enter a tag"
                 />
-                <button className="button-complete" onClick={() => addNewTag()}>
+                <button className="button-edit" onClick={() => addNewTag()}>
                     <ArrowForward id="i" />
                 </button>
             </div>
 
             <div className="tags-container">
                 {tags.map((tag) => (
-                    <Tag
+                    <TagItem
                         name={tag.name}
                         id={tag.id}
                         key={tag.id}
