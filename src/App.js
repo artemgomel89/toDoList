@@ -36,7 +36,7 @@ function App() {
         await deleteDoc(doc(db, path, id));
     };
 
-    useEffect(() => {
+    const getTasks = async () => {
         const q = query(collection(db, CONSTANTS.TASKS));
         const unsub = onSnapshot(q, (querySnapshot) => {
             let tasksArr = [];
@@ -59,15 +59,18 @@ function App() {
 
             console.log(tasks);
         });
-
         return () => unsub();
+    };
+
+    useEffect(() => {
+        getTasks();
     }, [isFiltered]);
 
     return (
         <div className="App">
             <Header />
             <Tags handleDelete={handleDelete} tags={tags} setTags={setTags} />
-            <TaskAddingForm />
+            <TaskAddingForm tags={tags} />
             <button
                 className={`button-edit button__filter ${
                     isFiltered ? 'filter-active' : ''

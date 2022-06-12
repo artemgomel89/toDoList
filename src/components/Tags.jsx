@@ -11,8 +11,8 @@ import db from '../Api/firebase';
 const Tags = ({ tags, setTags, handleDelete }) => {
     const [tagName, setTagName] = useState('');
 
-    useEffect(() => {
-        const q = query(collection(db, CONSTANTS.TAGS));
+    const getTags = async () => {
+        const q = await query(collection(db, CONSTANTS.TAGS));
         const unsub = onSnapshot(q, (querySnapshot) => {
             let tagsArr = [];
             querySnapshot.forEach((doc) => {
@@ -22,6 +22,10 @@ const Tags = ({ tags, setTags, handleDelete }) => {
         });
 
         return () => unsub();
+    };
+
+    useEffect(() => {
+        getTags();
     }, []);
 
     const addNewTag = async () => {
