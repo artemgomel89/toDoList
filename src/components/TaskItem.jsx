@@ -8,10 +8,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MuiAutocomplete from './MuiAutocomplete';
 
 const TaskItem = ({ task, toggleComplete, handleDelete, handleEdit, tags }) => {
-    const [newTitle, setNewTitle] = useState('');
+    const [newTitle, setNewTitle] = useState(task.title);
 
     const handleChange = (e) => {
         e.preventDefault();
+
         if (task.complete) {
             setNewTitle(task.title);
         } else {

@@ -25,7 +25,7 @@ function App() {
     const [tags, setTags] = useState([]);
 
     const handleEdit = async (task, title) => {
-        await updateDoc(doc(db, CONSTANTS.TASKS, task.id), { title: title });
+        await updateDoc(doc(db, CONSTANTS.TASKS, task.id), { title });
     };
     const toggleComplete = async (task) => {
         await updateDoc(doc(db, CONSTANTS.TASKS, task.id), {
